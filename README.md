@@ -1,0 +1,1 @@
+# Saga.MassTransit.Sample
