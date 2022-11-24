@@ -1,0 +1,15 @@
+version: '3.9'
+
+# https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html
+
+services:
+
+  saga-rabbitmq01:
+    image: rabbitmq:3-management
+    container_name: sagarabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    ports:
+      - 5672:5672
+      - 15672:15672
