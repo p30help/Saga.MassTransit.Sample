@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<OutputType>Exe</OutputType>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="7.3.1" />
+		<PackageReference Include="MassTransit.RabbitMQ" Version="8.0.8" />
+		<PackageReference Include="MassTransit.EntityFrameworkCore" Version="8.0.8" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.11" />
+		<PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="7.0.0" />
+		
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Message.Models\Messages.csproj" />
+	</ItemGroup>
+
+</Project>
