@@ -1,0 +1,46 @@
+﻿using MassTransit;
+using Messages.Events;
+using System;
+
+namespace SagaMachine.StateMachine
+{
+    /// <summary>
+    /// read more
+    /// https://masstransit-project.com/usage/sagas/automatonymous.html
+    /// </summary>
+    public class OrderStateMachine : MassTransitStateMachine<OrderStateData>
+    {
+        public State OrderStarted { get; private set; }
+        public State OrderCancelled { get; private set; }
+        public Event<IOrderStartedEvent> OrderStartedEvent { get; private set; }
+        public Event<IOrderCancelEvent> OrderCancelledEvent { get; private set; }
+
+        public OrderStateMachine()
+        {
+            Event(() => OrderStartedEvent, x => x.CorrelateById(m => m.Message.OrderId));
+
+            Event(() => OrderCancelledEvent, x => x.CorrelateById(m => m.Message.OrderId));
+
+            InstanceState(x => x.CurrentState);
+
+            Initially(
+               When(OrderStartedEvent)
+                .Then(context =>
+                {
+                    context.Saga.OrderCreationDateTime = DateTime.Now;
+                    context.Saga.OrderId = context.Message.OrderId;
+                    context.Saga.Price = context.Message.Price;
+                    context.Saga.ProductName = context.Message.ProductName;
+                })
+               .TransitionTo(OrderStarted)
+               .Publish(context => new OrderValidateEvent(context.Saga) ));
+
+            During(OrderStarted,
+                When(OrderCancelledEvent)
+                    .Then(context => context.Saga.OrderCancelDateTime = DateTime.Now)
+                     .TransitionTo(OrderCancelled)
+
+              );
+        }
+    }
+}
