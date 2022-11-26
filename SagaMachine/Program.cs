@@ -16,7 +16,7 @@ namespace SagaMachine
         {
             Console.WriteLine("Starting Saga State Machine...");
 
-            string connectionString = "Server=.;Database=OrderDb;Trusted_Connection=True;";
+            string ConnectionString = "Server=.;Database=OrderDb;Trusted_Connection=True;";
 
             var builder = new HostBuilder()
                .ConfigureServices((hostContext, services) =>
@@ -33,7 +33,7 @@ namespace SagaMachine
                         
                             r.AddDbContext<DbContext, OrderStateDbContext>((provider, builder) =>
                             {
-                                builder.UseSqlServer(connectionString, m =>
+                                builder.UseSqlServer(ConnectionString, m =>
                                 {
                                     m.MigrationsAssembly(Assembly.GetExecutingAssembly().GetName().Name);
                                     m.MigrationsHistoryTable($"__{nameof(OrderStateDbContext)}");
