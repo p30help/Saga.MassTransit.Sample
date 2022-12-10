@@ -5,10 +5,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Order.ApiService.Consumers;
-using Stock.ApiService.Consumers;
+using Sms.ApiService.Consumers;
 
-namespace Stock.ApiService
+namespace Sms.ApiService
 {
     public class Startup
     {
@@ -23,8 +22,7 @@ namespace Stock.ApiService
         {
             services.AddMassTransit(cfg =>
             {
-                cfg.AddConsumer<InventoryCalculatingConsumer>();
-                cfg.AddConsumer<InventoryCalculatingCompensateConsumer>();
+                cfg.AddConsumer<OrderSendingSmsConsumer>();
 
                 cfg.UsingRabbitMq((context, cfg) =>
                 {

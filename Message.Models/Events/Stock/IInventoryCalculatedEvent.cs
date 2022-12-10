@@ -1,11 +1,13 @@
 ﻿using System;
 
-namespace Messages.Events
+namespace Messages.Events.Stock
 {
-    public interface IOrderValidateEvent
+    public interface IInventoryCalculatedEvent
     {
         public Guid OrderId { get; }
         public string ProductName { get; }
         public decimal Price { get; }
+        public string Mobile { get; }
+
     }
 }

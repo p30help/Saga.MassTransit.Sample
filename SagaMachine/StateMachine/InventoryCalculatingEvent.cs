@@ -1,12 +1,12 @@
-﻿using Messages.Events;
+﻿using Messages.Events.Stock;
 using System;
 
 namespace SagaMachine.StateMachine
 {
-    public class OrderValidateEvent : IOrderValidateEvent
+    public class InventoryCalculatingEvent : IInventoryCalculatingEvent
     {
         private readonly OrderStateData orderSagaState;
-        public OrderValidateEvent(OrderStateData orderStateData)
+        public InventoryCalculatingEvent(OrderStateData orderStateData)
         {
             orderSagaState = orderStateData;
         }
@@ -14,5 +14,7 @@ namespace SagaMachine.StateMachine
         public Guid OrderId => orderSagaState.OrderId;
         public decimal Price => orderSagaState.Price;
         public string ProductName => orderSagaState.ProductName;
+
+        public string Mobile => orderSagaState.Mobile;
     }
 }

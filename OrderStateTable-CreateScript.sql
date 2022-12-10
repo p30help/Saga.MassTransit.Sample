@@ -12,6 +12,7 @@ CREATE TABLE [dbo].[OrderStateData](
 	[OrderId] [uniqueidentifier] NULL,
 	[Price] [decimal](18, 0) NULL,
 	[ProductName] [nvarchar](max) NULL,
+	[Mobile] [nvarchar](20) NULL,
  CONSTRAINT [PK_OrderStateData] PRIMARY KEY CLUSTERED 
 (
 	[CorrelationId] ASC

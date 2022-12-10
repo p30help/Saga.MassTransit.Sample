@@ -1,5 +1,6 @@
 ﻿using MassTransit;
 using Messages.Events;
+using Messages.Events.Orders;
 using Microsoft.AspNetCore.Mvc;
 using Order.ApiService.Infra;
 using Order.ApiService.ViewModel;
@@ -23,7 +24,6 @@ namespace Order.ApiService.Controllers
             _orderDataAccess = orderDataAccess;
             _publishEndpoint = publishEndpoint;
         }
-
         [HttpPost]
         [Route("CreateOrder")]
         public async Task<IActionResult> CreateOrderUsingStateMachineInDb([FromBody] OrderModel orderModel)
@@ -39,7 +39,8 @@ namespace Order.ApiService.Controllers
             {
                 OrderId = orderModel.OrderId,
                 Price = orderModel.Price,
-                ProductName = orderModel.ProductName
+                ProductName = orderModel.ProductName,
+                Mobile = orderModel.Mobile
             };
 
             // read more on https://masstransit-project.com/usage/producers.html
@@ -59,11 +60,12 @@ namespace Order.ApiService.Controllers
             // that define in SagaStateMachine as first event otherwise it won't work.
             // when publish message IOrderStartedEvent we start the saga transaction
             // read more on https://masstransit-project.com/usage/producers.html
-            await _publishEndpoint.Publish<IOrderStartedEvent>(new
+            await _publishEndpoint.Publish<IOrderSubmittingEvent>(new
             {
                 OrderId = orderModel.OrderId,
                 Price = orderModel.Price,
-                ProductName = orderModel.ProductName
+                ProductName = orderModel.ProductName,
+                Mobile = orderModel.Mobile
             });
 
             return Ok("Order created");

@@ -29,7 +29,8 @@ namespace Order.ApiService
                 //cfg.AddRequestClient<IStartOrder>();
 
                 cfg.AddConsumer<StartOrderConsumer>();
-                cfg.AddConsumer<OrderCancelledConsumer>();
+                //cfg.AddConsumer<OrderSubmittedConsumer>();
+                cfg.AddConsumer<OrderCompensateConsumer>();
 
                 // read more on https://masstransit-project.com/quick-starts/rabbitmq.html
                 cfg.UsingRabbitMq((context, cfg) =>

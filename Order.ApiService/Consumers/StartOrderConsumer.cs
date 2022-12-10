@@ -1,5 +1,6 @@
 ﻿using MassTransit;
 using Messages.Events;
+using Messages.Events.Orders;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
@@ -24,11 +25,12 @@ namespace Order.ApiService.Consumers
             // do some tasks
             _logger.LogInformation("Order Transation Started and event published: {OrderId}", context.Message.OrderId);
 
-            await context.Publish<IOrderStartedEvent>(new
+            await context.Publish<IOrderSubmittingEvent>(new
             {
                 context.Message.OrderId,
+                context.Message.ProductName,
                 context.Message.Price,
-                context.Message.ProductName
+                context.Message.Mobile,
             });
 
         }

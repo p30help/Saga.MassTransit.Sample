@@ -13,4 +13,5 @@ Before run this project execute these tasks:
 Also in visual studio change start up setting to **Multiple Startup** and set start mode for under projects:
 - Order.ApiService
 - Stock.ApiService
+- Sms.ApiServer
 - SagaMachine
